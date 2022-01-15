@@ -19,7 +19,12 @@ function getYearDays(year) {
 
 function changeValue(meter, value, process) {
   meter.value = value;
-  process.innerText = (value * 100 + "").substring(0, 8) + "%";
+  let timeValue = value * 100 + "";
+  const pointIndex = timeValue.indexOf(".");
+  process.innerText =
+    timeValue.substring(0, pointIndex) +
+    timeValue.substring(pointIndex, pointIndex + 3) +
+    "%";
 }
 function changeToday() {
   var date = new Date();
