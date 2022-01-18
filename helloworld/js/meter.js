@@ -5,6 +5,8 @@ let year = document.getElementById("yearMeter");
 let todayProcess = document.getElementById("todayProcess");
 let mounthProcess = document.getElementById("mounthProcess");
 let yearProcess = document.getElementById("yearProcess");
+let workDelay = document.getElementById("workDelay");
+let work = document.getElementById("work");
 
 function caculate(time, baseTime) {
   return Math.round((time / baseTime) * 1000000) / 1000000.0;
@@ -50,11 +52,30 @@ function changeYear() {
   var baseTime = getYearDays(baseDate.getFullYear());
   changeValue(year, caculate(time, baseTime), yearProcess);
 }
+function changeDelay() {
+  chrome.storage.sync.get("time", ({ time }) => {
+    const maxTime = 8 * 60 * 60;
+    const delayTime = Math.round(
+      maxTime - (new Date().getTime() - time) / 1000
+    );
+    const hour = Math.floor(delayTime / (60 * 60));
+    const minus = Math.floor((delayTime / 60) % 60);
+    const sec = Math.round(delayTime % 60);
+    workDelay.innerText = hour + " h " + minus + " m " + sec + " s";
+  });
+}
+
+work.addEventListener("click", async () => {
+  const time = new Date().getTime();
+  console.log(time);
+  chrome.storage.sync.set({ time, user: "hello" });
+});
 
 changeToday();
 changeMounth();
 changeYear();
-
+changeDelay();
 setInterval(changeToday, 1000);
 setInterval(changeMounth, 1000);
 setInterval(changeYear, 1000);
+setInterval(changeDelay, 1000);
