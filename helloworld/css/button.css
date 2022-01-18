@@ -1,4 +1,4 @@
-button {
+ .color-button {
     height: 30px;
     width: 30px;
     outline: none;
@@ -8,10 +8,7 @@ button {
     cursor: pointer;
   }
   
-  button.current {
-    box-shadow: 0 0 0 2px white,
-                0 0 0 4px black;
-  }
+
   .loader-container {
     height: 6px;
     width: 200px;

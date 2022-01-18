@@ -54,7 +54,7 @@ function changeYear() {
 }
 function changeDelay() {
   chrome.storage.sync.get("time", ({ time }) => {
-    const maxTime = 8 * 60 * 60;
+    const maxTime = 9 * 60 * 60;
     const delayTime = Math.round(
       maxTime - (new Date().getTime() - time) / 1000
     );
