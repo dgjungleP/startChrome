@@ -66,9 +66,14 @@ function changeDelay() {
 }
 
 work.addEventListener("click", async () => {
-  const time = new Date().getTime();
-  console.log(time);
-  chrome.storage.sync.set({ time, user: "hello" });
+  const date = new Date();
+  const time = date.getTime();
+  chrome.storage.sync.get("day", ({ day }) => {
+    debugger;
+    if (date.getDay() != day) {
+      chrome.storage.sync.set({ time, day: date.getDay() });
+    }
+  });
 });
 
 changeToday();
