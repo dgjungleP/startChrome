@@ -7,6 +7,7 @@ let mounthProcess = document.getElementById("mounthProcess");
 let yearProcess = document.getElementById("yearProcess");
 let workDelay = document.getElementById("workDelay");
 let work = document.getElementById("work");
+let reset = document.getElementById("reset");
 
 function caculate(time, baseTime) {
   return Math.round((time / baseTime) * 1000000) / 1000000.0;
@@ -75,6 +76,19 @@ work.addEventListener("click", async () => {
     }
   });
 });
+
+reset.addEventListener("click", async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: restColor,
+  });
+});
+// The body of this function will be executed as a content script inside the
+// current page
+function restColor() {
+  document.body.style.backgroundColor = "";
+}
 
 changeToday();
 changeMounth();
