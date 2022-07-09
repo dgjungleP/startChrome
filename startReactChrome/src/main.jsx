@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import "./main.css";
 import { Col, Progress, Row } from "antd";
+import moment from "moment";
 
 function Time() {
   return (
@@ -39,8 +40,8 @@ function ProgressDashboard() {
 
   const fresh = () => {
     setTodayProcess(changeToday());
-    setYearProcess(changeMounth());
-    setMounthProcess(changeYear());
+    setYearProcess(changeYear());
+    setMounthProcess(changeMounth());
   };
   return (
     <>
@@ -98,20 +99,20 @@ function changeToday() {
 }
 function changeMounth() {
   var baseDate = new Date();
-  var time = baseDate.getDate();
+  var dayOfMonth = moment(baseDate).date();
   var baseTime = new Date(
     baseDate.getFullYear(),
     baseDate.getMonth() + 1,
     0
   ).getDate();
-  return caculate(time, baseTime);
+  return caculate(dayOfMonth, baseTime);
 }
 
 function changeYear() {
   var baseDate = new Date();
-  var time = baseDate.getDay();
+  var dayOfYear = moment(baseDate).dayOfYear();
   var baseTime = getYearDays(baseDate.getFullYear());
-  return caculate(time, baseTime);
+  return caculate(dayOfYear, baseTime);
 }
 function caculate(time, baseTime) {
   return Math.round((time / baseTime) * 10000) / 100.0;
