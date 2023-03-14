@@ -8,7 +8,12 @@ export default defineConfig({
   plugins: [
     react(),
     copy({
-      targets: [{ src: "./public/manifest.json", dest: "./dist" }],
+      targets: [
+        { src: "./public/manifest.json", dest: "./dist" },
+        { src: "./public/scripts/", dest: "./dist/scripts" },
+        { src: "./public/css/", dest: "./dist/css" },
+        { src: "./public/images/", dest: "./dist/images" },
+      ],
     }),
   ],
   base: "./",
